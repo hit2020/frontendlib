@@ -10,9 +10,9 @@ import GoodsMain from "./../components/goods/main.vue"
 Vue.use(VueRouter)
 
 const routes = [
-	{path:"/",name:"homemain",components:HomeMain},
-	{path:"/room",name:"roommain",components:RoomMain},
-	{path:"/goods",name:"gooodsmain",components:GoodsMain}
+	{path:"/",name:"homemain",component:HomeMain},
+	{path:"/room",name:"roommain",component:RoomMain},
+	{path:"/goods",name:"gooodsmain",component:GoodsMain}
 	
 ]
 

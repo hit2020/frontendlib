@@ -44,31 +44,23 @@
 		    <ul class="sidebar-menu" data-widget="tree">
 		      <li class="header">系统功能选择</li>
 		      <li class="treeview">
-		        <a href="#">
+		        <router-link to="/room">
 		          <i class="fa fa-dashboard"></i> <span>房间管理</span>
 		          <span class="pull-right-container">
 		            <i class="fa fa-angle-left pull-right"></i>
 		          </span>
-		        </a>
+		        </router-link>
 		      </li>
 			  
 			  <li class="treeview">
-			    <a href="#">
+			    <router-link to="/goods">
 			      <i class="fa fa-dashboard"></i> <span>物品管理</span>
 			      <span class="pull-right-container">
 			        <i class="fa fa-angle-left pull-right"></i>
 			      </span>
-			    </a>
+			    </router-link>
 			  </li>
 			  
-			  <li class="treeview">
-			    <a href="#">
-			      <i class="fa fa-dashboard"></i> <span>其它</span>
-			      <span class="pull-right-container">
-			        <i class="fa fa-angle-left pull-right"></i>
-			      </span>
-			    </a>
-			  </li>
 			</ul>
 		  </section>
 		  <!-- /.sidebar -->
@@ -85,9 +77,9 @@
 		      <small>子功能</small>
 		    </h1>
 		    <ol class="breadcrumb">
-		      <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-		      <li><a href="#">Examples</a></li>
-		      <li class="active">Blank page</li>
+		      <li> <router-link to="/"><i class="fa fa-dashboard"></i> 首页</router-link></li>
+		      <li> <router-link to="/"></router-link></li>
+		      <li class="active"></li>
 		    </ol>
 		  </section>
 		
@@ -98,8 +90,8 @@
 		    <div class="box">
 		
 		    <div class="box-body">
-		        主显示区
-		      </div>
+				<router-view></router-view>
+		    </div>
 		      <!-- /.box-body -->
 		    </div>
 		    <!-- /.box -->
