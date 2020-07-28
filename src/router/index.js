@@ -12,8 +12,12 @@ import RoomList from "./../components/room/list.vue"
 import RoomAdd from "./../components/room/add.vue"
 import RoomModify from "./../components/room/modify.vue"
 import RoomView from "./../components/room/view.vue"
-
+//引入物品的组件
 import GoodsMain from "./../components/goods/main.vue"
+import GoodsList from "./../components/goods/list.vue"
+import GoodsAdd from "./../components/goods/add.vue"
+import GoodsModify from "./../components/goods/modify.vue"
+import GoodsView from "./../components/goods/view.vue"
 
 Vue.use(VueRouter)
 
@@ -27,7 +31,13 @@ const routes = [
 		{path:"view/:no",name:"roomview",component:RoomView},
 		{path:"",redirect:"list"}
 	]},
-	{path:"/goods",name:"gooodsmain",component:GoodsMain}
+	{path:"/goods",name:"gooodsmain",component:GoodsMain,children:[
+		{path:"list",name:"goodslist",component:GoodsList},
+		{path:"add",name:"goodsadd",component:GoodsAdd},
+		{path:"modify/:no",name:"goodsmodify",component:GoodsModify},
+		{path:"view/:no",name:"goodsview",component:GoodsView},
+		{path:"",redirect:"list"}
+	]}
 	
 ]
 
