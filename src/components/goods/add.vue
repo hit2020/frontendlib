@@ -16,6 +16,12 @@
 				    <input type="text" class="form-control" v-model="goods.name" required>
 				  </div>
 				  <div class="form-group">
+				     <label for="inputPassword4">所属房间</label>
+				  	 <select v-model="goods.room.no" class="form-control">
+				  		 <option v-for="rm in roomList" v-bind:value="rm.no" v-bind:key="rm.no">{{rm.code}}</option>
+				  	 </select>
+				  </div> 
+				  <div class="form-group">
 				    <label for="exampleInputPassword1">物品价格</label>
 				    <input type="text" class="form-control" v-model="goods.price" required>
 				  </div>
@@ -32,17 +38,36 @@
 <script>
 	//import axios from "axios";
 	export default{
-		name:"goodsAdd",
+		name:"GoodsAdd",
 		data(){
 				return {
+					roomList:[],
 					goods:{
-						code:"",
-						name:"",
-						price:""
+						code:"D09",
+						name:"冰红茶",
+						price:"5",
+						room:{
+							no:1
+						}	
 					}
 				};
 		},
+		created() {
+			this.getRoomLits();
+		},
 		methods:{
+			getRoomLits(){ //取得所有部门列表
+				this.axiosJSON.get("/room/list/all/page").then(result=>{
+					if(result.data.status=="OK"){
+						console.log(result);
+						this.roomList=result.data.list;
+					}
+					else{
+						alert(result.data.message);
+					}
+					
+				});
+			},
 			add(){
 				this.axiosJSON.post("/goods/add",this.goods).then(result=>{
 					if(result.data.status=="OK"){

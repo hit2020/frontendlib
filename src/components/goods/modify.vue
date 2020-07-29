@@ -16,6 +16,10 @@
 		<input type="text" class="form-control" v-model="goods.name">
 	  </div>
 	  <div class="form-group">
+	  		<label for="exampleInputPassword1">所属房间</label>
+	  		<input type="text" class="form-control" v-model="goods.room.no">
+	  </div>
+	  <div class="form-group">
 		<label for="exampleInputPassword1">物品价格</label>
 		<input type="text" class="form-control" v-model="goods.price">
 	  </div>
@@ -32,13 +36,16 @@
 <script>
 	//import axios from "axios";
 	export default{
-		name:"goodsModify",
+		name:"GoodsModify",
 		data(){
 				return {
 					goods:{
 						code:"",
 						name:"",
 						price:"",
+						room:{
+							no:1
+						},
 						no:0
 					}
 				};
@@ -46,10 +53,12 @@
 			created(){//组件的生命周期方法 组件创建以后
 				let goodsNo=this.$route.params.no;
 				this.getgoods(goodsNo);
+				//this.getRoomLits();
 			},
 			methods:{
 				getgoods(no){
 					this.axiosJSON.get("/goods/get?no="+no).then(result=>{
+						/* console.log(result); */
 						this.goods=result.data.result;
 					});
 				},

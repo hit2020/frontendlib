@@ -30,29 +30,30 @@
 <script>
 	//import axios from "axios";
 	export default{
-		name:"goodsView",
+		name:"GoodsView",
 		data(){
-				return {
-					goods:{
-						code:"",
-						name:"",
-						price:"",
-						no:0
+			return {
+				goods:{}
+			};
+		},
+		props:{
+			no:{required:true}
+		},
+		created(){//组件的生命周期方法 组件创建以后
+			this.getGoods();
+		},
+		methods:{
+			getGoods(){
+				this.axiosJSON.get("/goods/get",{
+					params:{
+						no:this.no
 					}
-				};
-			},
-			created(){//组件的生命周期方法 组件创建以后
-				let goodsNo=this.$route.params.no;
-				this.getgoods(goodsNo);
-			},
-			methods:{
-				getgoods(no){
-					this.axiosJSON.get("/goods/get?no="+no).then(result=>{
-						this.goods=result.data.result;
-					});
-				}
+				}).then(result=>{
+					this.goods=result.data.result;
+				});
 			}
 		}
+	}
 </script>
 
 <style>

@@ -2,31 +2,33 @@
 	<!-- Default box -->
 	<div class="box">
 		<div class="box-header with-border">
-		  <h3 class="box-title">物品管理</h3>
+		  <h3 class="box-title">入住单管理</h3>
 		</div>
 	<div class="box-body">
 	   <table class="table table-bordered">
 		  <thead>
 			<tr>
-			  <th scope="col">编号</th>
 			  <th scope="col">编码</th>
-			  <th scope="col">名称</th>
-			  <th scope="col">所属房间</th>
-			  <th scope="col">价格</th>
+			  <th scope="col">客户姓名</th>
+			  <th scope="col">入住时间</th>
+			  <th scope="col">离开时间</th>
+			  <th scope="col">花费</th>
+			  <th scope="col">房间号</th>
 			  <th scope="col">操作</th>
 			</tr>
 		  </thead>
 		  <tbody>
-		  <tr v-for="gm in goodsList" v-bind:key="gm.no">
-			  <td>{{gm.no}}</td>
-			  <td>{{gm.code}}</td>
-			  <td>{{gm.name}}</td>
-			  <td>{{gm.room.code}}</td>
-			  <td>{{gm.price}}</td>
+		  <tr v-for="im in intableList" v-bind:key="im.code">
+			  <td>{{im.code}}</td>
+			  <td>{{im.guest.name}}</td>
+			  <td>{{im.begintime}}</td>
+			  <td>{{im.endtime}}</td>
+			  <td>{{im.cost}}</td>
+			  <td>{{im.no}}</td>
 			<td>
-				<router-link v-bind:to="'/goods/modify/'+gm.no" class="btn btn-success">修改</router-link>
-				<a href="#" v-on:click="deleteGoods(gm.no)" class="btn btn-danger">删除 </a> 
-				<router-link v-bind:to="'/goods/view/' + gm.no" class="btn btn-default">查看</router-link> 
+				<router-link v-bind:to="'/intable/modify/'+im.code" class="btn btn-success">修改</router-link>
+				<a href="#" v-on:click="deleteIntable(im.code)" class="btn btn-danger">删除 </a> 
+				<router-link v-bind:to="'/intable/view/' + im.code" class="btn btn-default">查看</router-link> 
 			</td>
 			</tr>
 		  </tbody>
@@ -48,7 +50,7 @@
 		</div>
 	</div> 
 	<!-- /.box-body -->
-	<router-link to="/goods/add" class="btn btn-success">增加新物品</router-link>
+	<router-link to="/intable/add" class="btn btn-success">增加新物品</router-link>
 	</div>
 	<!-- /.box -->
 </template>
@@ -56,10 +58,10 @@
 <script>
 	//import axios from "axios";
 	export default{
-		name:"GoodsList",
+		name:"IntableList",
 		data(){
 			return {
-				goodsList:[],
+				intableList:[],
 				page:1,
 				rows:5,
 				count:0,
@@ -71,23 +73,22 @@
 		},
 		methods:{
 			getList(){
-				this.axiosJSON.get("/goods/list/all/page",{
+				this.axiosJSON.get("/intable/list/all/page",{
 					params:{
 						rows:this.rows,
 						page:this.page
 					}
 				}).then(result=>{
-					console.log(result);
-					this.goodsList=result.data.list;
+					this.intableList=result.data.list;
 					this.count=result.data.count;
 					this.pageCount=result.data.pageCount;
 				});
 			},
-			deleteGoods(no){
-				console.log(no);
-				let checkresult=confirm("确认要删除此物品吗");
+			deleteIntable(code){
+				console.log(code);
+				let checkresult=confirm("确认要删除此入住单吗");
 				if(checkresult){
-					this.axiosJSON.post("/goods/delete",{no:no}).then(result=>{
+					this.axiosJSON.post("/intable/delete",{code:code}).then(result=>{
 						alert(result.data.message);
 						if(result.data.status=="OK"){
 							this.getList();

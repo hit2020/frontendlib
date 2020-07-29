@@ -1,0 +1,102 @@
+<template>
+<div class="box-body">
+	<table id="EmployeeTable" class="table table-bordered table-hover">
+	  <thead>
+	  <tr>
+		<th>账号</th>
+		<th>姓名</th>
+		<th>性别</th>       
+		<th>年龄</th>
+		<th>工资</th>
+		<th>生日</th>
+		<th>入职日期</th>
+		<th>部门</th>
+		<th>操作</th>
+		</tr>
+	  </thead>
+	  <tbody>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>       
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>
+				<router-link to="/employee/modify/1001" class="btn btn-success">修改 </router-link>
+				<a href="#" class="btn btn-default">删除 </a> 
+				<router-link to="/employee/view/1001" class="btn btn-default">查看</router-link>  
+			</td>
+		</tr>
+	  </tbody>
+	</table>
+<div class="row">
+			<div class="col-md-6">
+			个数:<span>{{count}}</span>	页数:<span>{{page}}</span>/<span>{{pageCount}}</span>
+			</div>
+			<div class="col-md-6 text-right">
+				<nav>
+				  <ul class="pagination justify-content-end">
+					<li class="page-item"><a class="page-link" href="#" v-on:click="toFirstPage()">首页</a></li>
+					<li class="page-item"><a class="page-link" href="#" v-on:click="toPreviousPage()">上页</a></li>
+					<li class="page-item"><a class="page-link" href="#" v-on:click="toNextPage()">下页</a></li>
+					<li class="page-item"><a class="page-link" href="#" v-on:click="toLastPage()">末页</a></li>
+				  </ul>
+				</nav>
+			</div>
+		</div> 
+ <div class="row">
+	 <div>
+		 <router-link to="/employee/add" class="btn btn-default">增加员工</router-link>
+	 </div>
+ </div>  
+</div>
+	
+</template>
+
+<script>
+	//员工列表组件
+	export default {
+		name:"EmployeeList",
+		data(){
+			return {
+				employeeList:[],
+				rows:5,
+				page:1,
+				count:0,
+				pageCount:0,
+				departmentNo:0
+			};
+		},
+		created(){
+			
+		},
+		methods:{
+			toFirstPage(){
+				this.page=1;
+				this.getList();
+			},
+			toPreviousPage(){
+				if(this.page>1){
+					this.page--;
+					this.getList();
+				}
+			},
+			toNextPage(){
+				if(this.page<this.pageCount){
+					this.page++;
+					this.getList();
+				}
+			},
+			toLastPage(){
+				this.page=this.pageCount;
+				this.getList();
+			}
+		}
+	}
+</script>
+
+<style>
+</style>

@@ -32,27 +32,28 @@
 	export default{
 		name:"RoomView",
 		data(){
-				return {
-					room:{
-						code:"",
-						type:"",
-						price:"",
-						no:0
+			return {
+				room:{}
+			};
+		},
+		props:{
+			no:{required:true}
+		},
+		created(){//组件的生命周期方法 组件创建以后
+			this.getRoom();
+		},
+		methods:{
+			getRoom(){
+				this.axiosJSON.get("/room/get",{
+					params:{
+						no:this.no
 					}
-				};
-			},
-			created(){//组件的生命周期方法 组件创建以后
-				let roomNo=this.$route.params.no;
-				this.getRoom(roomNo);
-			},
-			methods:{
-				getRoom(no){
-					this.axiosJSON.get("/room/get?no="+no).then(result=>{
-						this.room=result.data.result;
-					});
-				}
+				}).then(result=>{
+					this.room=result.data.result;
+				});
 			}
 		}
+	}
 </script>
 
 <style>

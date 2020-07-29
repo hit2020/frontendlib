@@ -60,6 +60,57 @@
 			      </span>
 			    </router-link>
 			  </li>
+			  <li class="treeview">
+			    <router-link to="/comp">
+			      <i class="fa fa-dashboard"></i> <span>联系公司信息</span>
+			      <span class="pull-right-container">
+			        <i class="fa fa-angle-left pull-right"></i>
+			      </span>
+			    </router-link>
+			  </li>
+			  
+			  <li class="treeview">
+			    <router-link to="/department">
+			      <i class="fa fa-dashboard"></i> <span>部门管理</span>
+			      <span class="pull-right-container">
+			        <i class="fa fa-angle-left pull-right"></i>
+			      </span>
+			    </router-link>
+				
+			  </li>
+			  <li class="treeview">
+			    <router-link to="/employee">
+			      <i class="fa fa-dashboard"></i> <span>员工管理</span>
+			      <span class="pull-right-container">
+			        <i class="fa fa-angle-left pull-right"></i>
+			      </span>
+			    </router-link>
+			  </li>
+			  <li class="treeview">
+			    <router-link to="/goods">
+			      <i class="fa fa-dashboard"></i> <span>爱好管理</span>
+			      <span class="pull-right-container">
+			        <i class="fa fa-angle-left pull-right"></i>
+			      </span>
+			    </router-link>
+			  </li>
+			  <li class="treeview">
+			    <router-link to="/guest">
+			      <i class="fa fa-dashboard"></i> <span>客户管理</span>
+			      <span class="pull-right-container">
+			        <i class="fa fa-angle-left pull-right"></i>
+			      </span>
+			    </router-link>
+			  </li>
+			  <li class="treeview">
+			    <router-link to="/intable">
+			      <i class="fa fa-dashboard"></i> <span>入住信息</span>
+			      <span class="pull-right-container">
+			        <i class="fa fa-angle-left pull-right"></i>
+			      </span>
+			    </router-link>
+			  </li>
+			 
 			  
 			</ul>
 		  </section>
