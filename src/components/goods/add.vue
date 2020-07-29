@@ -30,7 +30,7 @@
 </template>
 
 <script>
-	import axios from "axios";
+	//import axios from "axios";
 	export default{
 		name:"goodsAdd",
 		data(){
@@ -44,7 +44,7 @@
 		},
 		methods:{
 			add(){
-				axios.post("http://localhost:8100/goods/add",this.goods).then(result=>{
+				this.axiosJSON.post("/goods/add",this.goods).then(result=>{
 					if(result.data.status=="OK"){
 						alert(result.data.message);
 						this.$router.push("/goods/list");//编程方式跳转到列表组件

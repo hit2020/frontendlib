@@ -30,7 +30,7 @@
 </template>
 
 <script>
-	import axios from "axios";
+	//import axios from "axios";
 	export default{
 		name:"goodsModify",
 		data(){
@@ -49,13 +49,13 @@
 			},
 			methods:{
 				getgoods(no){
-					axios.get("http://localhost:8100/goods/get?no="+no).then(result=>{
+					this.axiosJSON.get("/goods/get?no="+no).then(result=>{
 						this.goods=result.data.result;
 					});
 				},
 				
 				modify(){
-					axios.post("http://localhost:8100/goods/modify",this.goods).then(result=>{
+					this.axiosJSON.post("/goods/modify",this.goods).then(result=>{
 						/* console.log(result); */
 						if(result.data.status=="OK"){
 							alert(result.data.message);

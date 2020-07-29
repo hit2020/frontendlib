@@ -37,7 +37,7 @@
 </template>
 
 <script>
-	import axios from "axios";
+	//import axios from "axios";
 	export default{
 		name:"GoodsList",
 		data(){
@@ -54,7 +54,7 @@
 		},
 		methods:{
 			getList(){
-				axios.get("http://localhost:8100/goods/list/all/page",{
+				this.axiosJSON.get("/goods/list/all/page",{
 					params:{
 						rows:this.rows,
 						page:this.page
@@ -69,7 +69,7 @@
 				console.log(no);
 				let checkresult=confirm("确认要删除此物品吗");
 				if(checkresult){
-					axios.post("http://localhost:8100/goods/delete",{no:no}).then(result=>{
+					this.axiosJSON.post("/goods/delete",{no:no}).then(result=>{
 						alert(result.data.message);
 						if(result.data.status=="OK"){
 							this.getList();

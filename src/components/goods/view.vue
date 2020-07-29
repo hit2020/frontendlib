@@ -28,7 +28,7 @@
 </template>
 
 <script>
-	import axios from "axios";
+	//import axios from "axios";
 	export default{
 		name:"goodsView",
 		data(){
@@ -47,7 +47,7 @@
 			},
 			methods:{
 				getgoods(no){
-					axios.get("http://localhost:8100/goods/get?no="+no).then(result=>{
+					this.axiosJSON.get("/goods/get?no="+no).then(result=>{
 						this.goods=result.data.result;
 					});
 				}
