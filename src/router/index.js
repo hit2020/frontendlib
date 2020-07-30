@@ -34,12 +34,12 @@ import DepartmetnAdd  from "./../components/department/add.vue";
 import DepartmetnModify  from "./../components/department/modify.vue";
 import DepartmetnView  from "./../components/department/view.vue";
 
-/* //引入爱好的组件
+//引入爱好的组件
 import BehaveMain  from "./../components/behave/main.vue";
 import BehaveList  from "./../components/behave/list.vue";
 import BehaveAdd  from "./../components/behave/add.vue";
 import BehaveModify  from "./../components/behave/modify.vue";
-import BehaveView  from "./../components/behave/view.vue"; */
+import BehaveView  from "./../components/behave/view.vue";
 //引入员工组件 
 import EmployeeMain  from "./../components/employee/main.vue";
 import EmployeeList  from "./../components/employee/list.vue";
@@ -97,18 +97,18 @@ const routes = [
 		{path:"view/:no",name:"departmentview",component:DepartmetnView,props:true},
 		{path:"", redirect: "list" }
 	]},
-	/* {path:"/behave",name:"behavetmain", component:BehaveMain,children:[
+	{path:"/behave",name:"behavetmain", component:BehaveMain,children:[
 		{path:"list",name:"behavelist",component:BehaveList},
 		{path:"add",name:"behaveadd",component:BehaveAdd},
 		{path:"modify/:no",name:"behavemodify",component:BehaveModify},
 		{path:"view/:no",name:"behaveview",component:BehaveView},
 		{path:"", redirect: "list" }
-	]}, */
+	]},
 	{path:"/employee", name:"employeemain", component:EmployeeMain,children:[
 		{path:"list",name:"employeelist",component:EmployeeList},
 		{path:"add",name:"employeeadd",component:EmployeeAdd},
-		{path:"modify/:id",name:"employeemodify",component:EmployeeModify},
-		{path:"view/:id",name:"employeeview",component:EmployeeView},
+		{path:"modify/:id",name:"employeemodify",component:EmployeeModify,props:true},
+		{path:"view/:id",name:"employeeview",component:EmployeeView,props:true},
 		{path:"", redirect: "list" }
 	]},
 	{path:"/guest",name:"guestmain",component:GuestMain,children:[

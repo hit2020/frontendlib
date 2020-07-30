@@ -67,7 +67,7 @@
 						</span>
 					  </div>
 			</div>				
-			<button type="submit" class="btn btn-success">提交</button>
+			<button type="submit" class="btn btn-primary">提交</button>
 			<router-link to="/employee/list" class="btn btn-primary">取消</router-link>
 		</div>
 		</form>
