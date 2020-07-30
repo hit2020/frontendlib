@@ -4,6 +4,35 @@
 		<div class="box-header with-border">
 		  <h3 class="box-title">客户管理</h3>
 		</div>
+		<div class="row">
+			<div clas="col-md-12">
+				<form>
+				  <div class="form-row">
+				    
+					<div class="form-group col-md-3">
+					   <label for="inputPassword4">性别</label>
+						<select class="form-control" v-model="sex" v-on:change="getListByCondition">
+								<option selected value="">无</option>
+								<option>男</option>
+								<option>女</option>
+						</select>
+					</div>
+				    <div class="form-group col-md-3">
+				      <label for="inputPassword4">最低年龄</label>
+				      <input type="text" class="form-control" v-model="lowAge" v-on:change="getListByCondition">
+				    </div>
+					<div class="form-group col-md-3">
+					  <label for="inputPassword4">最高年龄</label>
+					  <input type="text" class="form-control" v-model="highAge" v-on:change="getListByCondition">
+					</div>
+					<div class="form-group col-md-3">
+					  <label for="inputPassword4">姓名</label>
+					  <input type="text" class="form-control" v-model="nameKey" v-on:change="getListByCondition">
+					</div>
+				  </div>
+				</form>
+			</div>
+		</div>
 	<div class="box-body">
 	   <table class="table table-bordered">
 		  <thead>
@@ -61,22 +90,31 @@
 		name:"GuestList",
 		data(){
 			return {
+				geList:[],
 				guestList:[],
 				page:1,
 				rows:5,
 				count:0,
-				pageCount:0
+				pageCount:0,
+				sex:"",
+				lowAge:0,
+				highAge:0,
+				nameKey:""
 			};
 		},
 		created(){//组件的生命周期方法 组件创建以后
-			this.getList();
+			this.getListByCondition();
 		},
 		methods:{
-			getList(){
-				this.axiosJSON.get("/guest/list/all/page",{
+			getListByCondition(){
+				this.axiosJSON.get("/guest/list/condition/page",{
 					params:{
 						rows:this.rows,
-						page:this.page
+						page:this.page,
+						lowAge:this.lowAge,
+						highAge:this.highAge,
+						sex:this.sex,
+						nameKey:this.nameKey
 					}
 				}).then(result=>{
 					this.guestList=result.data.list;
@@ -91,30 +129,30 @@
 					this.axiosJSON.post("/guest/delete",{no:no}).then(result=>{
 						alert(result.data.message);
 						if(result.data.status=="OK"){
-							this.getList();
+							this.getListByCondition();
 						}
 					});
 				}
 			},
 			toFirstPage(){
 				this.page=1;
-				this.getList();
+				this.getListByCondition();
 			},
 			toPreviousPage(){
 				if(this.page>1){
 					this.page--;
-					this.getList();
+					this.getListByCondition();
 				}
 			},
 			toNextPage(){
 				if(this.page<this.pageCount){
 					this.page++;
-					this.getList();
+					this.getListByCondition();
 				}
 			},
 			toLastPage(){
 				this.page=this.pageCount;
-				this.getList();
+				this.getListByCondition();
 			}
 		}
 	}

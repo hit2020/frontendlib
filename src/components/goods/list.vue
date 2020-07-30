@@ -4,6 +4,29 @@
 		<div class="box-header with-border">
 		  <h3 class="box-title">物品管理</h3>
 		</div>
+		<div class="row">
+			<div clas="col-md-12">
+				<form>
+				  <div class="form-row">
+				    <div class="form-group col-md-3">
+				      <label for="inputEmail4">房间</label>
+				      <select class="form-control" v-model="roomNo" v-on:change="getListByCondition" >
+						  <option value="0">所有房间</option>
+						  <option v-for="rm in roomList" v-bind:key="rm.no" v-bind:value="rm.no">{{rm.code}}</option>
+					  </select>
+				    </div>
+				    <div class="form-group col-md-3">
+				      <label for="inputPassword4">最低价格</label>
+				      <input type="text" class="form-control" v-model="lowPrice" v-on:change="getListByCondition">
+				    </div>
+					<div class="form-group col-md-3">
+					  <label for="inputPassword4">最高价格</label>
+					  <input type="text" class="form-control" v-model="highPrice" v-on:change="getListByCondition">
+					</div>
+				  </div>
+				</form>
+			</div>
+		</div>
 	<div class="box-body">
 	   <table class="table table-bordered">
 		  <thead>
@@ -59,28 +82,47 @@
 		name:"GoodsList",
 		data(){
 			return {
+				roomList:[],
 				goodsList:[],
 				page:1,
 				rows:5,
 				count:0,
-				pageCount:0
+				pageCount:0,
+				roomNo:0,
+				lowPrice:0,
+				highPrice:0
 			};
 		},
 		created(){//组件的生命周期方法 组件创建以后
-			this.getList();
+			this.getListByCondition();
+			this.getRoomList();
 		},
 		methods:{
-			getList(){
-				this.axiosJSON.get("/goods/list/all/page",{
+			getListByCondition(){
+				this.axiosJSON.get("/goods/list/condition/page",{
 					params:{
 						rows:this.rows,
-						page:this.page
+						page:this.page,
+						lowPrice:this.lowPrice,
+						highPrice:this.highPrice,
+						roomNo:this.roomNo
 					}
 				}).then(result=>{
-					console.log(result);
+					console.log(this.roomNo);
 					this.goodsList=result.data.list;
 					this.count=result.data.count;
 					this.pageCount=result.data.pageCount;
+				});
+			},
+			getRoomList(){
+				this.axiosJSON.get("/room/list/all/page",{
+					params:{
+						rows:100,
+						page:1
+					}
+				}).then(result=>{
+					console.log(result);
+					this.roomList=result.data.list;
 				});
 			},
 			deleteGoods(no){
@@ -90,30 +132,30 @@
 					this.axiosJSON.post("/goods/delete",{no:no}).then(result=>{
 						alert(result.data.message);
 						if(result.data.status=="OK"){
-							this.getList();
+							this.getListByCondition();
 						}
 					});
 				}
 			},
 			toFirstPage(){
 				this.page=1;
-				this.getList();
+				this.getListByCondition();
 			},
 			toPreviousPage(){
 				if(this.page>1){
 					this.page--;
-					this.getList();
+					this.getListByCondition();
 				}
 			},
 			toNextPage(){
 				if(this.page<this.pageCount){
 					this.page++;
-					this.getList();
+					this.getListByCondition();
 				}
 			},
 			toLastPage(){
 				this.page=this.pageCount;
-				this.getList();
+				this.getListByCondition();
 			}
 		}
 	}

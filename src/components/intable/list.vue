@@ -4,6 +4,33 @@
 		<div class="box-header with-border">
 		  <h3 class="box-title">入住单管理</h3>
 		</div>
+		<div class="row">
+			<div clas="col-md-12">
+				<form>
+				  <div class="form-row">
+				    <div class="form-group col-md-3">
+				      <label for="inputEmail4">房间</label>
+				      <select class="form-control" v-model="departmentNo" v-on:change="getListByCondition" >
+						  <option value="0">所有房间</option>
+						  <option v-for="dm in departmentList" v-bind:key="dm.no" v-bind:value="dm.no">{{dm.name}}</option>
+					  </select>
+				    </div>
+				    <div class="form-group col-md-3">
+				      <label for="inputPassword4">入住开始日期</label>
+				      <input type="date" class="form-control" v-model="startDate" v-on:change="getListByCondition">
+				    </div>
+					<div class="form-group col-md-3">
+					  <label for="inputPassword4">入住截止日期</label>
+					  <input type="date" class="form-control" v-model="endDate" v-on:change="getListByCondition">
+					</div>
+					<div class="form-group col-md-3">
+					  <label for="inputPassword4">姓名检索</label>
+					  <input type="text" class="form-control" v-model="nameKey" v-on:change="getListByCondition">
+					</div>
+				  </div>
+				</form>
+			</div>
+		</div>
 	<div class="box-body">
 	   <table class="table table-bordered">
 		  <thead>

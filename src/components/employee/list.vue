@@ -19,10 +19,10 @@
 				  <label for="inputPassword4">入职截止日期</label>
 				  <input type="date" class="form-control" v-model="endDate" v-on:change="getListByCondition">
 				</div>
-				<div class="form-group col-md-3">
+				<!-- <div class="form-group col-md-3">
 				  <label for="inputPassword4">姓名检索</label>
 				  <input type="text" class="form-control" v-model="nameKey" v-on:change="getListByCondition">
-				</div>
+				</div> -->
 			  </div>
 			</form>
 		</div>

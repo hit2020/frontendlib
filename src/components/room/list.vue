@@ -4,6 +4,29 @@
 		<div class="box-header with-border">
 		  <h3 class="box-title">房间管理</h3>
 		</div>
+		<div class="row">
+			<div clas="col-md-12">
+				<form>
+				  <div class="form-row">
+				    <div class="form-group col-md-3">
+				      <label for="inputEmail4">房间</label>
+				      <select class="form-control" v-model="type" v-on:change="getListByCondition" >
+						  <option value="">所有房间</option>
+						  <option v-for="rm in reList" v-bind:key="rm.no" v-bind:value="rm.type">{{rm.type}}</option>
+					  </select>
+				    </div>
+				    <div class="form-group col-md-3">
+				      <label for="inputPassword4">最低价格</label>
+				      <input type="text" class="form-control" v-model="lowPrice" v-on:change="getListByCondition">
+				    </div>
+					<div class="form-group col-md-3">
+					  <label for="inputPassword4">最高价格</label>
+					  <input type="text" class="form-control" v-model="highPrice" v-on:change="getListByCondition">
+					</div>
+				  </div>
+				</form>
+			</div>
+		</div>
 	<div class="box-body">
 	   <table class="table table-bordered">
 		  <thead>
@@ -57,27 +80,50 @@
 		name:"RoomList",
 		data(){
 			return {
+				reList:[],
 				roomList:[],
 				page:1,
 				rows:5,
 				count:0,
-				pageCount:0
+				pageCount:0,
+				type:"",
+				lowPrice:0,
+				highPrice:0
 			};
 		},
 		created(){//组件的生命周期方法 组件创建以后
+			this.getListByCondition();
 			this.getList();
 		},
 		methods:{
 			getList(){
 				this.axiosJSON.get("/room/list/all/page",{
+					rows:this.count,
+					page:1,
+				}).then(result=>{
+					if(result.data.status=="OK"){
+						this.reList=result.data.list;
+					}
+					
+				});
+			},
+			getListByCondition(){
+				this.axiosJSON.get("/room/list/condition/page",{
 					params:{
 						rows:this.rows,
-						page:this.page
+						page:this.page,
+						type:this.type,
+						lowPrice:this.lowPrice,
+						highPrice:this.highPrice,
 					}
 				}).then(result=>{
-					this.roomList=result.data.list;
-					this.count=result.data.count;
-					this.pageCount=result.data.pageCount;
+					if(result.data.status=="OK"){
+						console.log(this.type);
+						this.roomList=result.data.list;
+						this.count=result.data.count;
+						this.pageCount=result.data.pageCount;
+					}
+					
 				});
 			},
 			deleteRoom(no){
@@ -87,30 +133,30 @@
 					this.axiosJSON.post("/room/delete",{no:no}).then(result=>{
 						alert(result.data.message);
 						if(result.data.status=="OK"){
-							this.getList();
+							this.getListByCondition();
 						}
 					});
 				}
 			},
 			toFirstPage(){
 				this.page=1;
-				this.getList();
+				this.getListByCondition();
 			},
 			toPreviousPage(){
 				if(this.page>1){
 					this.page--;
-					this.getList();
+					this.getListByCondition();
 				}
 			},
 			toNextPage(){
 				if(this.page<this.pageCount){
 					this.page++;
-					this.getList();
+					this.getListByCondition();
 				}
 			},
 			toLastPage(){
 				this.page=this.pageCount;
-				this.getList();
+				this.getListByCondition();
 			}
 		}
 	}

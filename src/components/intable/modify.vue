@@ -4,6 +4,7 @@
 <div class="box-header with-border">
   <h3 class="box-title">修改入住单</h3>
 </div>
+
 <div class="box-body">
   <form  method="post" v-on:submit.prevent="modify()">
 	  <div class="form-group">
