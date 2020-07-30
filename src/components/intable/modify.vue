@@ -8,7 +8,7 @@
   <form  method="post" v-on:submit.prevent="modify()">
 	  <div class="form-group">
 		<label for="exampleInputEmail1">入住单编码</label>
-		<input type="text" class="form-control" v-model="intable.code">
+		<input type="text" class="form-control" v-model="intable.code" readonly>
 		<small id="emailHelp" class="form-text text-muted"></small>
 	  </div>
 	  

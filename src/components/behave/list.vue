@@ -17,9 +17,9 @@
 				  <td>{{dm.no}}</td>
 				  <td>{{dm.name}}</td>
 					<td>
-					  <router-link v-bind:to="'/behave/modify/'+dm.no" class="btn btn-default">修改</router-link>
+					  <router-link v-bind:to="'/behave/modify/'+dm.no" class="btn btn-success">修改</router-link>
 					  <a href="#" v-on:click="deleteBehave(dm.no)"  class="btn btn-danger">删除</a>
-					  <router-link to="/behave/view" class="btn btn-default">查看</router-link>
+					  <router-link v-bind:to="{name:'behaveview',params:{no:dm.no}}" class="btn btn-default">查看</router-link> 
 					</td>
 				</tr>
 			  </tbody>
@@ -47,7 +47,6 @@
 </template>
 
 <script>
-	import axios from "axios";
 	export default {
 		name:"BehaveList",
 		data(){
@@ -64,7 +63,7 @@
 		},
 		methods:{
 			getList(){
-				axios.get("http://localhost:8200/behave/list/all/page",{
+				this.axiosJSON.get("/behave/list/all/page",{
 					params:{
 						rows:this.rows,
 						page:this.page
@@ -78,7 +77,7 @@
 			deleteBehave(no){
 				let checkresult=confirm("您确认要删除此爱好么");
 				if(checkresult){
-					axios.post("http://localhost:8200/behave/delete",{no:no}).then(result=>{
+					this.axiosJSON.post("/behave/delete",{no:no}).then(result=>{
 						alert(result.data.message);
 						if(result.data.status=="OK"){
 							this.getList();

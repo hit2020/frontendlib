@@ -23,7 +23,6 @@
 </template>
 
 <script>
-	import axios from "axios";
 	export default {
 		name:"BehaveAdd",
 		data(){
@@ -35,7 +34,7 @@
 		},
 		methods:{
 			add(){
-				axios.post("http://localhost:8200/behave/add",this.behave).then(result=>{
+				this.axiosJSON.post("/behave/add",this.behave).then(result=>{
 					if(result.data.status=="OK"){
 						alert(result.data.message);
 						this.$router.push("/behave/list"); //编程方式跳转到部门列表组件

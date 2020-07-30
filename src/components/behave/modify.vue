@@ -15,8 +15,8 @@
                     <label for="exampleInputPassword1">爱好名称</label>
                     <input type="text" class="form-control" v-model="behave.name">
                 </div>
-                <button type="submit" class="btn btn-primary">提交</button>
-                <router-link to="/department/list" class="btn btn-default">取消</router-link>
+                <button type="submit" class="btn btn-success">提交</button>
+                <router-link to="/behave/list" class="btn btn-default">取消</router-link>
             </form>
 
         </div>
@@ -26,7 +26,6 @@
 </template>
 
 <script>
-    import axios from "axios";
     //部门修改组件
     export default {
         name:"BehaveModify",
@@ -46,12 +45,12 @@
         methods:{
             getBehave(no){
 
-                axios.get("http://localhost:8200/behave/get?no="+no).then(result=>{
+                this.axiosJSON.get("/behave/get?no="+no).then(result=>{
                     this.behave=result.data.result;
                 });
             },
             modify(){
-                axios.post("http://localhost:8200/behave/modify",this.behave).then(result=>{
+                this.axiosJSON.post("/behave/modify",this.behave).then(result=>{
                     if(result.data.status=="OK"){
                         alert(result.data.message);
                         this.$router.push("/behave/list"); //编程方式跳转到爱好列表组件

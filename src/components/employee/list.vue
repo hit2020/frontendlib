@@ -53,8 +53,8 @@
 				<td>{{em.joinDate}}</td>
 				<td>{{em.department.name}}</td>
 				<td>
-					<router-link to="/employee/modify/1001" class="btn btn-default">修改 </router-link>
-					<a href="#" class="btn btn-default">删除 </a> 
+					<router-link v-bind:to="'/employee/modify/'+em.id" class="btn btn-success">修改</router-link>
+					<a href="#" v-on:click="deleteEmployee(em.id)" class="btn btn-danger">删除 </a> 
 					<router-link v-bind:to="{name:'employeeview',params:{id:em.id}} " class="btn btn-default">查看</router-link>  
 				</td>
 			</tr>
@@ -68,17 +68,17 @@
 			<div class="col-md-6 text-right">
 				<nav>
 				  <ul class="pagination justify-content-end">
-					<li class="page-item"><a class="page-link" href="#">首页</a></li>
-					<li class="page-item"><a class="page-link" href="#" >上页</a></li>
-					<li class="page-item"><a class="page-link" href="#" >下页</a></li>
-					<li class="page-item"><a class="page-link" href="#" >末页</a></li>
+					<li class="page-item"><a class="page-link" href="#" v-on:click="toFirstPage()">首页</a></li>
+					<li class="page-item"><a class="page-link" href="#" v-on:click="toPreviousPage()">上页</a></li>
+					<li class="page-item"><a class="page-link" href="#" v-on:click="toNextPage()">下页</a></li>
+					<li class="page-item"><a class="page-link" href="#" v-on:click="toLastPage()">末页</a></li>
 				  </ul>
 				</nav>
 			</div>
 		</div> 
 		 <div class="row">
 			 <div>
-				 <router-link to="/employee/add" class="btn btn-default">增加员工</router-link>
+				 <router-link to="/employee/add" class="btn btn-success">增加员工</router-link>
 			 </div>
 		 </div>  
 </div>
@@ -95,7 +95,7 @@
 				departmentList:[],
 				count:0,
 				pageCount:0,			
-				rows:6,
+				rows:5,
 				page:1,
 				departmentNo:0,
 				lowAge:0,
@@ -111,6 +111,18 @@
 			this.getListByCondition();
 		},
 		methods:{
+			deleteEmployee(id){
+				console.log(id);
+				let checkresult=confirm("确认要删除此员工吗");
+				if(checkresult){
+					this.axiosJSON.post("/employee/delete?id="+id).then(result=>{
+						alert(result.data.message);
+						if(result.data.status=="OK"){
+							this.getListByCondition();
+						}
+					});
+				}
+			},
 			getListByCondition(){
 				this.axiosJSON.get("/employee/list/condition/page",{
 					params:{
@@ -138,6 +150,26 @@
 						alert(result.data.message);
 					}
 				});
+			},
+			toFirstPage(){
+				this.page=1;
+				this.getListByCondition();
+			},
+			toPreviousPage(){
+				if(this.page>1){
+					this.page--;
+					this.getListByCondition();
+				}
+			},
+			toNextPage(){
+				if(this.page<this.pageCount){
+					this.page++;
+					this.getListByCondition();
+				}
+			},
+			toLastPage(){
+				this.page=this.pageCount;
+				this.getListByCondition();
 			}
 		}
 	}

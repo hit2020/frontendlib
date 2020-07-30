@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-
+//引入store 的vue
+import store from './../store/index'
 
 //引入路由管理的组件
 //首页区组件
@@ -101,13 +102,13 @@ const routes = [
 		{path:"list",name:"behavelist",component:BehaveList},
 		{path:"add",name:"behaveadd",component:BehaveAdd},
 		{path:"modify/:no",name:"behavemodify",component:BehaveModify},
-		{path:"view/:no",name:"behaveview",component:BehaveView},
+		{path:"view/:no",name:"behaveview",component:BehaveView,props:true},
 		{path:"", redirect: "list" }
 	]},
 	{path:"/employee", name:"employeemain", component:EmployeeMain,children:[
 		{path:"list",name:"employeelist",component:EmployeeList},
 		{path:"add",name:"employeeadd",component:EmployeeAdd},
-		{path:"modify/:id",name:"employeemodify",component:EmployeeModify,props:true},
+		{path:"modify/:id",name:"employeemodify",component:EmployeeModify},
 		{path:"view/:id",name:"employeeview",component:EmployeeView,props:true},
 		{path:"", redirect: "list" }
 	]},
@@ -128,10 +129,26 @@ const routes = [
 	
 ]
 
+
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes:routes
+})
+
+//路由守护  登录拦截
+router.beforeEach((to,from, next) => {
+	if(to.path=="/login"){
+		next();
+	}
+	else{
+		 if(store.getters.loginuser!=null){
+			 next();
+		 }
+		 else{
+			 next("/login");
+		 }
+	}
 })
 
 export default router

@@ -7,6 +7,10 @@
 <div class="box-body">
   <form  method="post" v-on:submit.prevent="modify()">
 	  <div class="form-group">
+	  		<label for="exampleInputPassword1">客户编号</label>
+	  		<input type="text" class="form-control" v-model="guest.no" readonly>
+	  </div>
+	  <div class="form-group">
 		<label for="exampleInputPassword1">客户姓名</label>
 		<input type="text" class="form-control" v-model="guest.name">
 	  </div>

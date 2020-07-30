@@ -7,6 +7,11 @@
 <div class="box-body">
   <form  method="post" v-on:submit.prevent="modify()">
 	  <div class="form-group">
+	  		<label for="exampleInputEmail1">公司编号</label>
+	  		<input type="text" class="form-control" v-model="comp.no" readonly>
+	  		<small id="emailHelp" class="form-text text-muted"></small>
+	  </div>
+	  <div class="form-group">
 		<label for="exampleInputEmail1">公司名称</label>
 		<input type="text" class="form-control" v-model="comp.name">
 		<small id="emailHelp" class="form-text text-muted"></small>
