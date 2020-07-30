@@ -6,6 +6,8 @@ import store from './../store/index'
 //引入路由管理的组件
 //首页区组件
 import AdminLogin from "./../components/admin/login.vue"
+
+
 import HomeMain from "./../components/home/main.vue"
 //引入房间的组件
 import RoomMain from "./../components/room/main.vue"
@@ -41,6 +43,7 @@ import BehaveList  from "./../components/behave/list.vue";
 import BehaveAdd  from "./../components/behave/add.vue";
 import BehaveModify  from "./../components/behave/modify.vue";
 import BehaveView  from "./../components/behave/view.vue";
+import AdminAdd from "./../components/behave/register.vue"
 //引入员工组件 
 import EmployeeMain  from "./../components/employee/main.vue";
 import EmployeeList  from "./../components/employee/list.vue";
@@ -70,6 +73,7 @@ Vue.use(VueRouter)
 const routes = [
 	{path:"/",name:"homemain",component:HomeMain},
 	{path:"/login",name:"login",component:AdminLogin},
+		
 	{path:"/room",name:"roommain",component:RoomMain,children:[
 		{path:"list",name:"roomlist",component:RoomList},
 		{path:"add",name:"roomadd",component:RoomAdd},
@@ -103,7 +107,8 @@ const routes = [
 		{path:"add",name:"behaveadd",component:BehaveAdd},
 		{path:"modify/:no",name:"behavemodify",component:BehaveModify},
 		{path:"view/:no",name:"behaveview",component:BehaveView,props:true},
-		{path:"", redirect: "list" }
+		{path:"", redirect: "list" },
+		{path:"register",name:"AdminAdd",component:AdminAdd},
 	]},
 	{path:"/employee", name:"employeemain", component:EmployeeMain,children:[
 		{path:"list",name:"employeelist",component:EmployeeList},
@@ -138,7 +143,7 @@ const router = new VueRouter({
 
 //路由守护  登录拦截
 router.beforeEach((to,from, next) => {
-	if(to.path=="/login"){
+	if(to.path=="/login" || from.path == "/login"){
 		next();
 	}
 	else{

@@ -1,7 +1,7 @@
 <template>
 <div class="login-box">
   <div class="login-logo">
-	<a href="../../index2.html"><b>东软OA系统</b></a>
+	<a href="../../index2.html"><b>Hotel管理系统</b></a>
   </div>
   
   
@@ -26,8 +26,8 @@
 	  </div>
 	</form>
 	<!-- /.social-auth-links -->
-	<a href="#" class="btn btn-info">忘记密码</a>
-	<a href="register.html"  class="btn btn-info text-center">注册新用户</a>
+	<!-- <a href="register.html"  class="btn btn-info text-center">注册新用户</a> -->
+	<router-link to="/behave/register" class="btn btn-default">注册新用户</router-link>
 
   </div>
   <!-- /.login-box-body -->
