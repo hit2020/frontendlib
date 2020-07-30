@@ -2,7 +2,7 @@
 <div>
 	<div class="row">
 		<div clas="col-md-12">
-			<form>
+			<div>
 			  <div class="form-row">
 			    <div class="form-group col-md-3">
 			      <label for="inputEmail4">部门</label>
@@ -24,7 +24,7 @@
 				  <input type="text" class="form-control" v-model="nameKey" v-on:change="getListByCondition">
 				</div>
 			  </div>
-			</form>
+			</div>
 		</div>
 	</div>
 	<div class="box-body">
