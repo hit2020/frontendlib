@@ -9,21 +9,18 @@
 			<div clas="col-md-12">
 				<form>
 				  <div class="form-row">
-
+					<div class="form-group col-md-3">
+						<label for="inputPassword4">房间号</label>
+						<input type="text" class="form-control" v-model="roomNo" v-on:change="getListByCondition">
+					</div>
+				    
 				    <div class="form-group col-md-3">
-				      <label for="inputEmail4">房间</label>
-				      <select class="form-control" v-model="departmentNo" v-on:change="getListByCondition" >
-						  <option value="0">所有房间</option>
-						  <option v-for="dm in departmentList" v-bind:key="dm.no" v-bind:value="dm.no">{{dm.name}}</option>
-					  </select>
-				    </div>
-				    <div class="form-group col-md-3">
-				      <label for="inputPassword4">入住开始日期</label>
-				      <input type="date" class="form-control" v-model="startDate" v-on:change="getListByCondition">
+				      <label for="inputPassword4">最低花费</label>
+				      <input type="text" class="form-control" v-model="lowPrice" v-on:change="getListByCondition">
 				    </div>
 					<div class="form-group col-md-3">
-					  <label for="inputPassword4">入住截止日期</label>
-					  <input type="date" class="form-control" v-model="endDate" v-on:change="getListByCondition">
+					  <label for="inputPassword4">最高花费</label>
+					  <input type="text" class="form-control" v-model="highPrice" v-on:change="getListByCondition">
 					</div>
 
 					<div class="form-group col-md-3">
@@ -98,20 +95,24 @@
 				count:0,
 				pageCount:0,
 				nameKey:"",
-				lowAge:0,
-				highAge:0,
+				lowPrice:0,
+				highPrice:0,
 				roomNo:0
 			};
 		},
 		created(){//组件的生命周期方法 组件创建以后
-			this.getList();
+			this.getListByCondition();
 		},
 		methods:{
-			getList(){
-				this.axiosJSON.get("/intable/list/all/page",{
+			getListByCondition(){
+				this.axiosJSON.get("/intable/list/condition/page",{
 					params:{
 						rows:this.rows,
-						page:this.page
+						page:this.page,
+						lowPrice:this.lowPrice,
+						highPrice:this.highPrice,
+						roomNo:this.roomNo,
+						nameKey:this.nameKey
 					}
 				}).then(result=>{
 					this.intableList=result.data.list;
@@ -126,49 +127,31 @@
 					this.axiosJSON.post("/intable/delete",{code:code}).then(result=>{
 						alert(result.data.message);
 						if(result.data.status=="OK"){
-							this.getList();
+							this.getListByCondition();
 						}
 					});
 				}
 			},
 			toFirstPage(){
 				this.page=1;
-				this.getList();
+				this.getListByCondition();
 			},
 			toPreviousPage(){
 				if(this.page>1){
 					this.page--;
-					this.getList();
+					this.getListByCondition();
 				}
 			},
 			toNextPage(){
 				if(this.page<this.pageCount){
 					this.page++;
-					this.getList();
+					this.getListByCondition();
 				}
 			},
 			toLastPage(){
 				this.page=this.pageCount;
-				this.getList();
-			},
-			getListByCondition(){
-				this.axiosJSON.get("/intable/list/condition/page",{
-					params:{
-						rows:this.rows,
-						page:this.page,
-						lowAge:this.lowAge,
-						nameKey:this.nameKey,
-						highAge:this.highAge,
-						roomNo:this.roomNo
-					}					
-				}).then(result=>{
-					if(result.data.status=="OK"){
-						this.employeeList=result.data.list;
-						this.count=result.data.count;
-						this.pageCount=result.data.pageCount;
-					}
-				});
-			},
+				this.getListByCondition();
+			}
 		}
 	}
 </script>
