@@ -12,13 +12,14 @@
 		<small id="emailHelp" class="form-text text-muted"></small>
 	  </div>
 	  
+	  
 	  <div class="form-group">
 	  		<label for="exampleInputPassword1">入住时间</label>
-	  		<input type="text" class="form-control" v-model="intable.begintime">
+	  		<input type="date" class="form-control" v-model="intable.begintime">
 	  </div>
 	  <div class="form-group">
 		<label for="exampleInputPassword1">离开时间</label>
-		<input type="text" class="form-control" v-model="intable.endtime">
+		<input type="date" class="form-control" v-model="intable.endtime">
 	  </div>
 	  <div class="form-group">
 	  		<label for="exampleInputPassword1">花费</label>
