@@ -76,6 +76,7 @@
 </template>
 
 <script>
+	import MainConfig from "./../../config"; //引入全局参数配置
 	//员工增加组件
 	export default {
 		name:"EmployeeAdd",
@@ -109,8 +110,22 @@
 		methods:{
 			getemployee(Id){
 				this.axiosJSON.get("/employee/get/"+Id).then(result=>{
-					/* console.log(result); */
-					this.employee=result.data.result;
+					if(result.data.status=="OK"){
+						this.employee=result.data.result;
+						//取得员工现有的爱好
+						if(this.employee.behaves){
+							this.employee.behaves.forEach((bm,index,arrt)=>{
+								this.selectbehaves.push(bm.no); 
+							});
+						}						
+						if(this.employee.photoFileName!=null){
+							this.photoUrl=MainConfig.photoRootUrl+this.employee.photoFileName;
+							this.restPhotoUrl=MainConfig.restRootUrl+"employee/photo?id="+this.id
+						}
+					}
+					else{
+						alert(result.data.message);
+					}
 				});
 			},
 			getDepartmentLits(){ //取得所有部门列表
