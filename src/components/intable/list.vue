@@ -4,10 +4,12 @@
 		<div class="box-header with-border">
 		  <h3 class="box-title">入住单管理</h3>
 		</div>
+
 		<div class="row">
 			<div clas="col-md-12">
 				<form>
 				  <div class="form-row">
+
 				    <div class="form-group col-md-3">
 				      <label for="inputEmail4">房间</label>
 				      <select class="form-control" v-model="departmentNo" v-on:change="getListByCondition" >
@@ -23,6 +25,7 @@
 					  <label for="inputPassword4">入住截止日期</label>
 					  <input type="date" class="form-control" v-model="endDate" v-on:change="getListByCondition">
 					</div>
+
 					<div class="form-group col-md-3">
 					  <label for="inputPassword4">姓名检索</label>
 					  <input type="text" class="form-control" v-model="nameKey" v-on:change="getListByCondition">
@@ -31,6 +34,7 @@
 				</form>
 			</div>
 		</div>
+
 	<div class="box-body">
 	   <table class="table table-bordered">
 		  <thead>
@@ -92,7 +96,11 @@
 				page:1,
 				rows:5,
 				count:0,
-				pageCount:0
+				pageCount:0,
+				nameKey:"",
+				lowAge:0,
+				highAge:0,
+				roomNo:0
 			};
 		},
 		created(){//组件的生命周期方法 组件创建以后
@@ -142,7 +150,25 @@
 			toLastPage(){
 				this.page=this.pageCount;
 				this.getList();
-			}
+			},
+			getListByCondition(){
+				this.axiosJSON.get("/intable/list/condition/page",{
+					params:{
+						rows:this.rows,
+						page:this.page,
+						lowAge:this.lowAge,
+						nameKey:this.nameKey,
+						highAge:this.highAge,
+						roomNo:this.roomNo
+					}					
+				}).then(result=>{
+					if(result.data.status=="OK"){
+						this.employeeList=result.data.list;
+						this.count=result.data.count;
+						this.pageCount=result.data.pageCount;
+					}
+				});
+			},
 		}
 	}
 </script>
